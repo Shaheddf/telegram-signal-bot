@@ -37,11 +37,6 @@ def webhook():
 
     return "ok"
 
-
 @app.route("/", methods=["GET"])
 def home():
-    return "Telegram Signal Bot Running ✅"
-
-
-if __name__ == "__main__":
-    app.run(port=8000)
+    return "Telegram Bot Running ✅"
