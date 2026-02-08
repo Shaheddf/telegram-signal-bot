@@ -4,6 +4,7 @@ import os
 
 app = Flask(__name__)
 
+# Railway Variables থেকে আসবে
 TOKEN = os.environ.get("BOT_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
 
@@ -11,6 +12,7 @@ CHAT_ID = os.environ.get("CHAT_ID")
 def webhook():
     data = request.json
 
+    # Telegram ছাড়া অন্য POST ignore করবে
     if "message" not in data:
         return "ok"
 
@@ -30,6 +32,7 @@ def webhook():
 """
 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+
     requests.post(url, json={
         "chat_id": chat_id,
         "text": reply
@@ -39,4 +42,9 @@ def webhook():
 
 @app.route("/", methods=["GET"])
 def home():
-    return "Telegram Bot Running ✅"
+    return "Telegram Signal Bot Running ✅"
+
+# 🚨 Railway এর জন্য MOST IMPORTANT
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
